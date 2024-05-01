@@ -1,7 +1,9 @@
+import LandingPage from "./Pages/LandingPage";
+
 function App() {
   return (
     <div>
-      <h1>MYtinerary</h1>
+      <LandingPage />
     </div>
   );
 }
