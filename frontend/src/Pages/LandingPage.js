@@ -1,9 +1,8 @@
 import React from "react";
-import Image from "react-bootstrap/Image";
-import Logo from "../assets/MYtineraryLogo.png";
+import LandingLogo from "../components/LandingLogo";
 
 const LandingPage = () => {
-  return <Image src={Logo} />;
+  return <LandingLogo />;
 };
 
 export default LandingPage;
