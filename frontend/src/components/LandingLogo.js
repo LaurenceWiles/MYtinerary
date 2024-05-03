@@ -1,14 +1,14 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import Logo from "../assets/MYtineraryLogo.png";
 
 const LandingLogo = () => {
   return (
-    <div className="landing-logo">
-      <Container>
+    <div className="landing-logo-container">
+      <div className="landing-logo">
         <Image src={Logo} fluid />
-      </Container>
+      </div>
     </div>
   );
 };

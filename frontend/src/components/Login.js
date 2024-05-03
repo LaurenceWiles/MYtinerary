@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <div>
-      <p>Want to build your own MYtinerary?</p>
-      <ul>
+      <p className="text-center">Want to build your own MYtinerary?</p>
+      <ul className="login-list">
         <li>
           <Link to="/login">Log in</Link>
         </li>

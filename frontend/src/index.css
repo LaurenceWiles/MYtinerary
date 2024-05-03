@@ -17,7 +17,27 @@ code {
   max-width: 425px;
 }
 
+.landing-logo-container {
+  display: flex;
+  justify-content: center;
+}
+
 .landing-p {
   padding-top: 20px;
   font-weight: bold;
+}
+
+.circled-right {
+  max-width: 50%;
+}
+
+.circled-right-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
 }

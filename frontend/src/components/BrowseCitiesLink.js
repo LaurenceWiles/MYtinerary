@@ -6,10 +6,14 @@ import CircledRight from "../assets/circled-right-2.png";
 const BrowseCitiesLink = () => {
   return (
     <div>
-      <h2>Start Browsing</h2>
-      <Link to="/cities-page">
-        <Image src={CircledRight} fluid />
-      </Link>
+      <h2 className="text-center">Start Browsing</h2>
+      <div className="circled-right-container">
+        <div className="circled-right">
+          <Link to="/cities-page">
+            <Image src={CircledRight} fluid />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
