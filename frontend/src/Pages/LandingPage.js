@@ -2,15 +2,19 @@ import React from "react";
 import LandingLogo from "../components/LandingLogo";
 import LandingP from "../components/LandingP";
 import { Container } from "react-bootstrap";
+import BrowseCitiesLink from "../components/BrowseCitiesLink";
+import Login from "../components/Login";
+import Footer from "../components/Footer";
 
 const LandingPage = () => {
   return (
-    <div>
-      <Container>
-        <LandingLogo />
-        <LandingP />
-      </Container>
-    </div>
+    <Container>
+      <LandingLogo />
+      <LandingP />
+      <BrowseCitiesLink />
+      <Login />
+      <Footer />
+    </Container>
   );
 };
 
