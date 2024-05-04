@@ -8,13 +8,17 @@ import Footer from "../components/Footer";
 
 const LandingPage = () => {
   return (
-    <Container>
+    <div className="landing-page">
       <LandingLogo />
-      <LandingP />
-      <BrowseCitiesLink />
-      <Login />
-      <Footer />
-    </Container>
+      <Container className="content-container">
+        <div className="content">
+          <LandingP />
+          <BrowseCitiesLink />
+          <Login />
+        </div>
+        <Footer />
+      </Container>
+    </div>
   );
 };
 

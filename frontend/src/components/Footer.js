@@ -5,10 +5,12 @@ import HomeIcon from "../assets/homeIcon.png";
 
 const Footer = () => {
   return (
-    <div>
-      <Link to="/">
-        <Image src={HomeIcon} fluid />
-      </Link>
+    <div className="footer-container">
+      <div className="footer">
+        <Link to="/">
+          <Image src={HomeIcon} fluid />
+        </Link>
+      </div>
     </div>
   );
 };
