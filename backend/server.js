@@ -23,6 +23,8 @@ app.use(
 
 app.use(cors());
 
+app.use("/all", cities);
+
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the app" });
 });
@@ -37,5 +39,3 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-app.use("/all", cities);
