@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -7,6 +5,7 @@ const cors = require("cors");
 const cities = require("./routes/cities");
 const app = express();
 const router = express.Router();
+const db = require("./keys").mongoUri;
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -23,17 +22,17 @@ app.use(
 
 app.use(cors());
 
-app.use("/all", cities);
+app.use("/cities", cities);
 
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the app" });
 });
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(db)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log("connected to db and listening on port", process.env.PORT);
+    app.listen("4000", () => {
+      console.log("db connected", "4000");
     });
   })
   .catch((error) => {

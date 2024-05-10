@@ -6,13 +6,6 @@ const citySchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  country: {
-    type: String,
-    required: true,
-  },
-  img: {
-    type: String,
-  },
 });
 
-module.exports = mongoose.model("city", citySchema);
+module.exports = mongoose.model("cities", citySchema);
