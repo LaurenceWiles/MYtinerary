@@ -18,7 +18,7 @@ code {
   height: 100vh;
 }
 
-.content-container {
+.landingpage-container {
   flex: 1;
   flex-direction: column;
   display: flex;
@@ -29,6 +29,23 @@ code {
     rgba(255, 255, 255, 1),
     rgba(255, 242, 228, 1)
   );
+}
+
+.cities-page {
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1),
+    rgba(255, 242, 228, 1)
+  );
+}
+
+.citiespage-container {
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content {
@@ -51,7 +68,7 @@ code {
 
 .browse-cities {
   padding-top: 25px;
-  padding-bottom: 50px;
+  padding-bottom: 25px;
 }
 
 .circled-right {
@@ -72,7 +89,7 @@ code {
 }
 
 .footer {
-  height: 50px;
+  height: 38px;
 }
 
 .footer-container {

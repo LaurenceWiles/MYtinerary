@@ -10,7 +10,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <LandingLogo />
-      <Container className="content-container">
+      <Container className="landingpage-container">
         <div className="content">
           <LandingP />
           <BrowseCitiesLink />
