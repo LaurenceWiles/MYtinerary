@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   res.send({ msg: "Cities test route." });
 });
 
-//get all cities
+//GET all cities
 router.get("/all", (req, res) => {
   cityModel
     .find({})
@@ -17,6 +17,11 @@ router.get("/all", (req, res) => {
       res.send(files);
     })
     .catch((err) => console.log(err));
+});
+
+//POST a new city
+router.post("/all", (req, res) => {
+  res.json({ msg: "POST a new city" });
 });
 
 module.exports = router;
