@@ -104,3 +104,26 @@ code {
   height: 100%;
   width: auto;
 }
+
+.cities-header {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.filtered-cities {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-top: none;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

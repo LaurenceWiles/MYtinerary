@@ -31,7 +31,7 @@ const CitiesPage = () => {
     setFilter(value);
   };
 
-  const filteredCities = cities
+  const filteredCities = filter
     ? cities.filter((city) =>
         city.name.toLowerCase().startsWith(filter.toLowerCase())
       )
@@ -40,14 +40,16 @@ const CitiesPage = () => {
   return (
     <div className="cities-page">
       <Container className="citiespage-container">
-        <h1 className="text-center">Find your city</h1>
-        <CitiesInput onChange={handleFilterChange} />
-        {loading && <Spinner animation="border" />}
-        {error && <Alert variant="danger">{error}</Alert>}
-        <div>
-          {filteredCities.map((city) => (
-            <p key={city._id}>{city.name}</p>
-          ))}
+        <h1 className="text-center cities-header">Find your city</h1>
+        <div className="input-container">
+          <CitiesInput onChange={handleFilterChange} />
+          <div className="filtered-cities">
+            {loading && <Spinner animation="border" />}
+            {error && <Alert variant="danger">{error}</Alert>}
+            {filteredCities.map((city) => (
+              <p key={city._id}>{city.name}</p>
+            ))}
+          </div>
         </div>
         <Footer />
       </Container>
