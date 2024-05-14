@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Spinner, Alert } from "react-bootstrap";
 import CitiesInput from "../components/CitiesInput";
 import Footer from "../components/Footer";
+import useCityData from "../hooks/useCityData";
+import { useDebounce } from "use-debounce";
 
 const CitiesPage = () => {
-  const [cities, setCities] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { cities, loading, error } = useCityData();
   const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/cities/all");
-        if (!response.ok) {
-          throw new Error("Failed to fetch cities");
-        }
-        const json = await response.json();
-        setCities(json);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCities();
-  }, []);
+  const [debouncedFilter] = useDebounce(filter, 500);
 
   const handleFilterChange = (value) => {
     setFilter(value);
@@ -33,7 +16,7 @@ const CitiesPage = () => {
 
   const filteredCities = filter
     ? cities.filter((city) =>
-        city.name.toLowerCase().startsWith(filter.toLowerCase())
+        city.name.toLowerCase().startsWith(debouncedFilter.toLowerCase())
       )
     : [];
 
@@ -46,6 +29,9 @@ const CitiesPage = () => {
           <div className="filtered-cities">
             {loading && <Spinner animation="border" />}
             {error && <Alert variant="danger">{error}</Alert>}
+            {!loading && filteredCities.length === 0 && debouncedFilter && (
+              <p>No cities found.</p>
+            )}
             {filteredCities.map((city) => (
               <p key={city._id}>{city.name}</p>
             ))}
