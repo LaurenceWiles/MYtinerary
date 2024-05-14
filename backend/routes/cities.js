@@ -20,8 +20,14 @@ router.get("/all", (req, res) => {
 });
 
 //POST a new city
-router.post("/all", (req, res) => {
-  res.json({ msg: "POST a new city" });
+router.post("/all", async (req, res) => {
+  const { name, country, img } = req.body;
+  try {
+    const city = await cityModel.create({ name, country, img });
+    res.status(200).json(city);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 module.exports = router;
