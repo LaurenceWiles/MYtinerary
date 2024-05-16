@@ -4,6 +4,7 @@ import CitiesInput from "../components/CitiesInput";
 import Footer from "../components/Footer";
 import useCityData from "../hooks/useCityData";
 import { useDebounce } from "use-debounce";
+import AddCity from "../components/AddCity";
 
 const CitiesPage = () => {
   const { cities, loading, error } = useCityData();
@@ -37,6 +38,7 @@ const CitiesPage = () => {
             ))}
           </div>
         </div>
+        <AddCity />
         <Footer />
       </Container>
     </div>
