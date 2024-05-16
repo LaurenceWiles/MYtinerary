@@ -7,12 +7,16 @@ import { useDebounce } from "use-debounce";
 import AddCity from "../components/AddCity";
 
 const CitiesPage = () => {
-  const { cities, loading, error } = useCityData();
+  const { cities, loading, error, refetch } = useCityData();
   const [filter, setFilter] = useState("");
   const [debouncedFilter] = useDebounce(filter, 500);
 
   const handleFilterChange = (value) => {
     setFilter(value);
+  };
+
+  const handleCityAdded = () => {
+    refetch();
   };
 
   const filteredCities = filter
@@ -38,7 +42,7 @@ const CitiesPage = () => {
             ))}
           </div>
         </div>
-        <AddCity />
+        <AddCity onCityAdded={handleCityAdded} />
         <Footer />
       </Container>
     </div>

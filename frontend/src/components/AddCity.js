@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 
-const AddCity = () => {
+const AddCity = ({ onCityAdded }) => {
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
   const [img, setImg] = useState("");
@@ -12,24 +12,28 @@ const AddCity = () => {
 
     const city = { name, country, img };
 
-    const response = await fetch("http://localhost:4000/cities/all", {
-      method: "POST",
-      body: JSON.stringify(city),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json = await response.json();
+    try {
+      const response = await fetch("http://localhost:4000/cities/all", {
+        method: "POST",
+        body: JSON.stringify(city),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    if (!response.ok) {
-      setError(json.error);
-    }
-    if (response.ok) {
+      if (!response.ok) {
+        throw new Error("Failed to add city");
+      }
+
       setName("");
       setCountry("");
       setImg("");
       setError(null);
-      console.log("new city added", json);
+
+      onCityAdded();
+      console.log("new city added", city);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
