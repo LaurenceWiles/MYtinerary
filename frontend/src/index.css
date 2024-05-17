@@ -32,7 +32,7 @@ code {
 }
 
 .cities-page {
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1),
@@ -96,6 +96,7 @@ code {
   display: flex;
   justify-content: center;
   background: rgba(255, 242, 228, 1);
+  width: 100%;
   position: fixed;
   bottom: 0;
 }
@@ -126,4 +127,19 @@ code {
   max-height: 200px;
   overflow-y: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cities-text-header {
+  font-size: 2.5em;
+  padding-top: 20px;
+}
+
+.cities-input {
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+
+.add-city-form {
+  padding-top: 25px;
+  padding-bottom: 50px;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Spinner, Alert } from "react-bootstrap";
 import CitiesInput from "../components/CitiesInput";
+import CitiesText from "../components/CitiesText";
 import Footer from "../components/Footer";
 import useCityData from "../hooks/useCityData";
 import { useDebounce } from "use-debounce";
@@ -28,7 +29,7 @@ const CitiesPage = () => {
   return (
     <div className="cities-page">
       <Container className="citiespage-container">
-        <h1 className="text-center cities-header">Find your city</h1>
+        <CitiesText />
         <div className="input-container">
           <CitiesInput onChange={handleFilterChange} />
           <div className="filtered-cities">

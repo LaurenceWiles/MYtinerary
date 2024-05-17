@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Alert } from "react-bootstrap";
+import { Button, Alert, Form } from "react-bootstrap";
 
 const AddCity = ({ onCityAdded }) => {
   const [name, setName] = useState("");
@@ -44,7 +44,50 @@ const AddCity = ({ onCityAdded }) => {
 
   return (
     <div>
-      <form className="add-city" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="add-city-form">
+        <h2 className="text-center">Add a new city</h2>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter city name"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCountry">
+          <Form.Label>Country</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter country"
+            onChange={(e) => setCountry(e.target.value)}
+            value={country}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicImage">
+          <Form.Label>Image</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Upload a picture"
+            onChange={(e) => setImg(e.target.value)}
+            value={img}
+          />
+        </Form.Group>
+
+        {successMessage && <Alert variant="success">{successMessage}</Alert>}
+        <Button variant="secondary" type="submit">
+          Add City
+        </Button>
+      </Form>
+      ;
+    </div>
+  );
+};
+
+export default AddCity;
+
+/*
+  <Form className="add-city" onSubmit={handleSubmit}>
         <h2>Add a new city</h2>
 
         <label>Name:</label>
@@ -69,9 +112,5 @@ const AddCity = ({ onCityAdded }) => {
         <Button type="submit" variant="secondary">
           Add City
         </Button>
-      </form>
-    </div>
-  );
-};
-
-export default AddCity;
+      </Form>
+*/
