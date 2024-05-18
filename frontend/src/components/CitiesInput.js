@@ -5,7 +5,7 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const CitiesInput = ({ cities = [], loading, error, onChange }) => {
+const CitiesInput = ({ cities, loading, error, onChange }) => {
   const [filter, setFilter] = useState("");
   const [debouncedFilter] = useDebounce(filter, 500);
 
@@ -17,7 +17,7 @@ const CitiesInput = ({ cities = [], loading, error, onChange }) => {
     [onChange]
   );
 
-  const filteredCities = cities
+  const filteredCities = (cities || [])
     .filter((city) =>
       city.name.toLowerCase().includes(debouncedFilter.toLowerCase())
     )
