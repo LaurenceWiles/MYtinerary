@@ -127,6 +127,8 @@ code {
   max-height: 200px;
   overflow-y: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .cities-text-header {
@@ -135,8 +137,8 @@ code {
 }
 
 .cities-input {
-  padding-bottom: 10px;
   padding-top: 5px;
+  margin-bottom: 0;
 }
 
 .add-city-form {
