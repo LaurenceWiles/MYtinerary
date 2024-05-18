@@ -16,16 +16,14 @@ const CitiesPage = () => {
 
   return (
     <div className="cities-page">
-      <Container className="citiespage-container">
+      <Container className="cities-page-container">
         <CitiesText />
-        <div className="input-container">
-          <CitiesInput
-            cities={cities}
-            loading={loading}
-            error={error}
-            onChange={() => {}}
-          />
-        </div>
+        <CitiesInput
+          cities={cities}
+          loading={loading}
+          error={error}
+          onChange={() => {}}
+        />
         <AddCity onCityAdded={handleCityAdded} />
         <Footer />
       </Container>

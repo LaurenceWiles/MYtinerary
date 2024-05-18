@@ -1,5 +1,9 @@
+import * as React from "react";
 import { useState } from "react";
-import { Button, Alert, Form } from "react-bootstrap";
+import Alert from "@mui/joy/Alert";
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+import Textarea from "@mui/joy/Textarea";
 
 const AddCity = ({ onCityAdded }) => {
   const [name, setName] = useState("");
@@ -35,7 +39,7 @@ const AddCity = ({ onCityAdded }) => {
       setSuccessMessage("City successfully added");
       setTimeout(() => {
         setSuccessMessage("");
-      }, 2000);
+      }, 3000);
       console.log("new city added", city);
     } catch (error) {
       setError(error.message);
@@ -43,74 +47,54 @@ const AddCity = ({ onCityAdded }) => {
   };
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit} className="add-city-form">
+    <Box
+      sx={{
+        py: 2,
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
+      <form onSubmit={handleSubmit}>
         <h2 className="text-center">Add a new city</h2>
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter city name"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCountry">
-          <Form.Label>Country</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter country"
-            onChange={(e) => setCountry(e.target.value)}
-            value={country}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicImage">
-          <Form.Label>Image</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Upload a picture"
-            onChange={(e) => setImg(e.target.value)}
-            value={img}
-          />
-        </Form.Group>
-
-        {successMessage && <Alert variant="success">{successMessage}</Alert>}
-        <Button variant="secondary" type="submit">
-          Add City
+        <Textarea
+          placeholder="Enter city name"
+          required
+          sx={{ mb: 1 }}
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+        <Textarea
+          placeholder="Enter country"
+          required
+          sx={{ mb: 1 }}
+          onChange={(e) => setCountry(e.target.value)}
+          value={country}
+        />
+        <Textarea
+          placeholder="Upload a picture"
+          sx={{ mb: 1 }}
+          onChange={(e) => setImg(e.target.value)}
+          value={img}
+        />
+        {successMessage && (
+          <Alert color="success" variant="soft" className="success-alert">
+            {successMessage}
+          </Alert>
+        )}
+        <Button
+          type="submit"
+          variant="soft"
+          color="primary"
+          sx={{ width: "100%" }}
+        >
+          Submit
         </Button>
-      </Form>
-      ;
-    </div>
+      </form>
+    </Box>
   );
 };
 
 export default AddCity;
-
-/*
-  <Form className="add-city" onSubmit={handleSubmit}>
-        <h2>Add a new city</h2>
-
-        <label>Name:</label>
-        <input
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
-        <label>Country:</label>
-        <input
-          type="text"
-          onChange={(e) => setCountry(e.target.value)}
-          value={country}
-        />
-        <label>Img:</label>
-        <input
-          type="text"
-          onChange={(e) => setImg(e.target.value)}
-          value={img}
-        />
-        {successMessage && <Alert variant="success">{successMessage}</Alert>}
-        <Button type="submit" variant="secondary">
-          Add City
-        </Button>
-      </Form>
-*/

@@ -31,27 +31,6 @@ code {
   );
 }
 
-.cities-page {
-  min-height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1),
-    rgba(255, 242, 228, 1)
-  );
-}
-
-.citiespage-container {
-  flex: 1;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.content {
-  text-align: center;
-}
-
 .landing-logo {
   padding-top: 20px;
   max-width: 425px;
@@ -106,29 +85,22 @@ code {
   width: auto;
 }
 
-.cities-header {
-  padding-top: 20px;
-  padding-bottom: 10px;
+.cities-page {
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1),
+    rgba(255, 242, 228, 1)
+  );
+  color: #3c4142;
 }
 
-.input-container {
-  position: relative;
-}
-
-.filtered-cities {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1;
-  background-color: white;
-  border: 1px solid #ced4da;
-  border-top: none;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 0;
-  padding-top: 0;
+.cities-page-container {
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cities-text-header {
@@ -136,12 +108,6 @@ code {
   padding-top: 20px;
 }
 
-.cities-input {
-  padding-top: 5px;
-  margin-bottom: 0;
-}
-
-.add-city-form {
-  padding-top: 25px;
-  padding-bottom: 50px;
+.success-alert {
+  margin-bottom: 8px;
 }
