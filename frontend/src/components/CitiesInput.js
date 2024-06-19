@@ -19,7 +19,7 @@ const CitiesInput = ({ cities, loading, error, onChange }) => {
 
   const filteredCities = (cities || [])
     .filter((city) =>
-      city.name.toLowerCase().includes(debouncedFilter.toLowerCase())
+      city.name.toLowerCase().startsWith(debouncedFilter.toLowerCase())
     )
     .map((city) => city.name);
 

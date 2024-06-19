@@ -59,6 +59,7 @@ const AddCity = ({ onCityAdded }) => {
     >
       <form onSubmit={handleSubmit}>
         <h2 className="text-center">Add a new city</h2>
+
         <Textarea
           placeholder="Enter city name"
           required
@@ -86,8 +87,8 @@ const AddCity = ({ onCityAdded }) => {
         )}
         <Button
           type="submit"
-          variant="soft"
-          color="primary"
+          variant="solid"
+          color="neutral"
           sx={{ width: "100%" }}
         >
           Submit
