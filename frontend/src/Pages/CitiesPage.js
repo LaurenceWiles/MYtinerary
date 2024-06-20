@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Container, Spinner, Alert } from "react-bootstrap";
+import React from "react";
+import { Container } from "react-bootstrap";
 import CitiesInput from "../components/CitiesInput";
 import CitiesText from "../components/CitiesText";
 import Footer from "../components/Footer";
 import useCityData from "../hooks/useCityData";
-import { useDebounce } from "use-debounce";
 import AddCity from "../components/AddCity";
+import { fetchAllCities } from "../services/servicesCity";
 
 const CitiesPage = () => {
   const { cities, loading, error, refetch } = useCityData();

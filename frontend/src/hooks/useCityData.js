@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { fetchAllCities } from "../services/servicesCity";
 
 const useCityData = () => {
   const [cities, setCities] = useState(null);
