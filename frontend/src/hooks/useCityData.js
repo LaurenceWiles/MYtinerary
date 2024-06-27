@@ -1,36 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import { fetchAllCities } from "../services/servicesCity";
 
 const useCityData = () => {
-  const [cities, setCities] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchCities = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/cities/all");
-      if (!response.ok) {
-        throw new Error("Failed to fetch cities");
-      }
-      const json = await response.json();
-      setCities(json);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const cityState = useSelector((state) => state.cities);
+  const list = cityState.list;
+  const loading = cityState.loading;
+  const error = cityState.error;
 
   useEffect(() => {
-    fetchCities();
+    fetchAllCities();
   }, []);
 
   const refetch = () => {
-    setLoading(true);
-    fetchCities();
+    fetchAllCities();
   };
 
-  return { cities, loading, error, refetch };
+  return { list, loading, error, refetch };
 };
 
 export default useCityData;

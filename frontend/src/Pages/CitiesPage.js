@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import CitiesInput from "../components/CitiesInput";
 import CitiesText from "../components/CitiesText";
@@ -6,20 +6,25 @@ import Footer from "../components/Footer";
 import useCityData from "../hooks/useCityData";
 import AddCity from "../components/AddCity";
 import { fetchAllCities } from "../services/servicesCity";
+import { useDispatch } from "react-redux";
 
 const CitiesPage = () => {
-  const { cities, loading, error, refetch } = useCityData();
+  const dispatch = useDispatch();
+  const { list, loading, error, refetch } = useCityData();
 
   const handleCityAdded = () => {
     refetch();
   };
+  useEffect(() => {
+    dispatch(fetchAllCities());
+  }, [dispatch]);
 
   return (
     <div className="cities-page">
       <Container className="cities-page-container">
         <CitiesText />
         <CitiesInput
-          cities={cities}
+          cities={list}
           loading={loading}
           error={error}
           onChange={() => {}}
