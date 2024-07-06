@@ -30,6 +30,7 @@ export const postCityDB = async (data) => {
     }
   } catch (error) {
     console.error("Error posting city:", error);
+    throw error;
   }
 };
 

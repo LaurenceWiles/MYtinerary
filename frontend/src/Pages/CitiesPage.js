@@ -12,8 +12,10 @@ const CitiesPage = () => {
   const dispatch = useDispatch();
   const { list, loading, error, refetch } = useCityData();
 
-  const handleCityAdded = () => {
+  const handleCityAdded = (e) => {
+    e.preventDefault();
     refetch();
+    //useDispatch(addCity(list));
   };
   useEffect(() => {
     dispatch(fetchAllCities());

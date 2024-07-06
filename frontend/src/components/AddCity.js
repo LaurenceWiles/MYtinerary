@@ -4,45 +4,39 @@ import Alert from "@mui/joy/Alert";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
+import { addCity } from "../redux/citiesSlice";
+import { useDispatch } from "react-redux";
 
-const AddCity = ({ onCityAdded }) => {
+const AddCity = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
-  const [img, setImg] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    const city = { name, country, img };
+    if (!name || !country) {
+      setError("Both fields are required.");
+      return;
+    }
+
+    const data = { name, country };
 
     try {
-      const response = await fetch("http://localhost:4000/cities/all", {
-        method: "POST",
-        body: JSON.stringify(city),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to add city");
-      }
-
+      dispatch(addCity(data));
       setName("");
       setCountry("");
-      setImg("");
       setError(null);
-
-      onCityAdded();
       setSuccessMessage("City successfully added");
       setTimeout(() => {
         setSuccessMessage("");
       }, 3000);
-      console.log("new city added", city);
+      console.log("new city added", data);
     } catch (error) {
-      setError(error.message);
+      setError("Failed to add city. Please try again.");
+      console.error("Error adding city:", error);
     }
   };
 
@@ -74,12 +68,11 @@ const AddCity = ({ onCityAdded }) => {
           onChange={(e) => setCountry(e.target.value)}
           value={country}
         />
-        <Textarea
-          placeholder="Upload a picture"
-          sx={{ mb: 1 }}
-          onChange={(e) => setImg(e.target.value)}
-          value={img}
-        />
+        {error && (
+          <Alert color="danger" variant="soft" className="error-alert">
+            {error}
+          </Alert>
+        )}
         {successMessage && (
           <Alert color="success" variant="soft" className="success-alert">
             {successMessage}
