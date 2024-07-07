@@ -1,13 +1,19 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Spinner, Alert } from "react-bootstrap";
-import { useDebounce } from "use-debounce";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { fetchCities } from "../redux/citiesSlice";
 
-const CitiesInput = ({ cities, loading, error, onChange }) => {
+const CitiesInput = ({ onChange }) => {
+  const dispatch = useDispatch();
+  const { list: cities, loading, error } = useSelector((state) => state.cities);
   const [filter, setFilter] = useState("");
-  const [debouncedFilter] = useDebounce(filter, 500);
+
+  useEffect(() => {
+    dispatch(fetchCities());
+  }, [dispatch]);
 
   const handleChange = useCallback(
     (e) => {
@@ -17,11 +23,17 @@ const CitiesInput = ({ cities, loading, error, onChange }) => {
     [onChange]
   );
 
-  const filteredCities = (cities || [])
-    .filter((city) =>
-      city.name.toLowerCase().startsWith(debouncedFilter.toLowerCase())
-    )
-    .map((city) => city.name);
+  const filteredCities = useMemo(() => {
+    if (!filter) return cities.map((city) => city.name);
+    return (cities || [])
+      .filter(
+        (city) =>
+          city &&
+          city.name &&
+          city.name.toLowerCase().startsWith(filter.toLowerCase())
+      )
+      .map((city) => city.name);
+  }, [cities, filter]);
 
   return (
     <div>

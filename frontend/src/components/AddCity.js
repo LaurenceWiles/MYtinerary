@@ -4,7 +4,7 @@ import Alert from "@mui/joy/Alert";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
-import { addCity } from "../redux/citiesSlice";
+import { addCityAsync } from "../redux/citiesSlice";
 import { useDispatch } from "react-redux";
 
 const AddCity = () => {
@@ -25,15 +25,21 @@ const AddCity = () => {
     const data = { name, country };
 
     try {
-      dispatch(addCity(data));
-      setName("");
-      setCountry("");
-      setError(null);
-      setSuccessMessage("City successfully added");
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
-      console.log("new city added", data);
+      const resultAction = await dispatch(addCityAsync(data));
+      if (addCityAsync.fulfilled.match(resultAction)) {
+        setName("");
+        setCountry("");
+        setError(null);
+        setSuccessMessage("City successfully added");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
+        console.log("New city added", data);
+      } else {
+        setError(
+          resultAction.error.message || "Failed to add city. Please try again."
+        );
+      }
     } catch (error) {
       setError("Failed to add city. Please try again.");
       console.error("Error adding city:", error);
@@ -78,6 +84,7 @@ const AddCity = () => {
             {successMessage}
           </Alert>
         )}
+
         <Button
           type="submit"
           variant="solid"
