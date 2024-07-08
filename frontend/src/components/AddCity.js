@@ -4,45 +4,28 @@ import Alert from "@mui/joy/Alert";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
-import { addCityAsync } from "../redux/citiesSlice";
-import { useDispatch } from "react-redux";
+import useUpdateCityData from "../hooks/useUpdateCityData";
 
 const AddCity = () => {
-  const dispatch = useDispatch();
+  const { addCity, error, successMessage } = useUpdateCityData();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [localError, setLocalError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!name || !country) {
-      setError("Both fields are required.");
+      setLocalError("Both fields are required.");
       return;
     }
 
     const data = { name, country };
-
-    try {
-      const resultAction = await dispatch(addCityAsync(data));
-      if (addCityAsync.fulfilled.match(resultAction)) {
-        setName("");
-        setCountry("");
-        setError(null);
-        setSuccessMessage("City successfully added");
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 3000);
-        console.log("New city added", data);
-      } else {
-        setError(
-          resultAction.error.message || "Failed to add city. Please try again."
-        );
-      }
-    } catch (error) {
-      setError("Failed to add city. Please try again.");
-      console.error("Error adding city:", error);
+    const success = await addCity(data);
+    if (success) {
+      setName("");
+      setCountry("");
+      setLocalError("");
     }
   };
 
