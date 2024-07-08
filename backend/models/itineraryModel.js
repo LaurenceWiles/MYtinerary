@@ -6,7 +6,7 @@ const itineraryModel = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  profile: {
+  profilePic: {
     type: String,
     required: true,
   },
@@ -15,17 +15,18 @@ const itineraryModel = new mongoose.Schema({
     required: true,
   },
   duration: {
-    type: String,
+    type: Number,
     required: true,
   },
   price: {
-    type: String,
+    type: Number,
     required: true,
   },
   hashtags: {
     type: String,
-    required: true,
+    default: [],
   },
+  city: { type: mongoose.Schema.Types.ObjectId, ref: "City" },
 });
 
-module.exports = mongoose.model("itinerarys", itineraryModel);
+module.exports = mongoose.model("itinerary", itineraryModel);

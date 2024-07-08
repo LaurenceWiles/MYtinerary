@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { fetchAllCities } from "../services/servicesCity";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCities } from "../redux/citiesSlice";
 
 const useCityData = () => {
+  const dispatch = useDispatch();
   const cityState = useSelector((state) => state.cities);
   const { list, loading, error } = cityState;
 
   useEffect(() => {
-    fetchAllCities();
-  }, [cityState]);
+    dispatch(fetchCities());
+  }, [dispatch]);
 
   const refetch = () => {
-    fetchAllCities();
+    dispatch(fetchCities());
   };
 
   return { list, loading, error, refetch };

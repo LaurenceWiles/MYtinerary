@@ -1,19 +1,13 @@
-import { useCallback, useState, useMemo, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useCallback, useState, useMemo } from "react";
 import { Spinner, Alert } from "react-bootstrap";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { fetchCities } from "../redux/citiesSlice";
+import useCityData from "../hooks/useCityData";
 
 const CitiesInput = ({ onChange }) => {
-  const dispatch = useDispatch();
-  const { list: cities, loading, error } = useSelector((state) => state.cities);
+  const { list, loading, error } = useCityData();
   const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    dispatch(fetchCities());
-  }, [dispatch]);
 
   const handleChange = useCallback(
     (e) => {
@@ -24,8 +18,8 @@ const CitiesInput = ({ onChange }) => {
   );
 
   const filteredCities = useMemo(() => {
-    if (!filter) return cities.map((city) => city.name);
-    return (cities || [])
+    if (!filter) return list.map((city) => city.name);
+    return (list || [])
       .filter(
         (city) =>
           city &&
@@ -33,7 +27,7 @@ const CitiesInput = ({ onChange }) => {
           city.name.toLowerCase().startsWith(filter.toLowerCase())
       )
       .map((city) => city.name);
-  }, [cities, filter]);
+  }, [list, filter]);
 
   return (
     <div>
