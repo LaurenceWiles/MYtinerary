@@ -1,8 +1,7 @@
 const express = require("express");
-
 const router = express.Router();
-
 const { getAllCities, postCity } = require("../controllers/cityControler");
+const { ensureAuthenticated } = require("../middleware/auth");
 
 //test route
 router.get("/", (req, res) => {
@@ -13,6 +12,6 @@ router.get("/", (req, res) => {
 router.get("/all", getAllCities);
 
 //POST a new city
-router.post("/", postCity);
+router.post("/", ensureAuthenticated, postCity);
 
 module.exports = router;

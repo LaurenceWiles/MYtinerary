@@ -7,6 +7,21 @@ const itineraries = require("./routes/itineraries");
 const app = express();
 const router = express.Router();
 const db = require("./keys").mongoUri;
+const session = require("express-session");
+const passport = require("passport");
+
+require("./config/passport")(passport);
+
+app.use(
+  session({
+    secret: "secret", // Change this to a more secure secret in a real application
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -22,7 +37,6 @@ app.use(
 );
 
 app.use(cors());
-
 app.use("/cities", cities);
 app.use("/itineraries", itineraries);
 

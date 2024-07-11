@@ -25,7 +25,10 @@ const itineraryModel = new mongoose.Schema({
     type: String,
     default: [],
   },
-  city: { type: mongoose.Schema.Types.ObjectId, ref: "City" },
+  city: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("itinerary", itineraryModel);
