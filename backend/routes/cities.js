@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const cityModel = require("../models/cityModel");
+const { getAllCities, postCity } = require("../controllers/cityControler");
 
 //test route
 router.get("/", (req, res) => {
@@ -10,24 +10,9 @@ router.get("/", (req, res) => {
 });
 
 //GET all cities
-router.get("/all", (req, res) => {
-  cityModel
-    .find({})
-    .then((files) => {
-      res.send(files);
-    })
-    .catch((err) => console.log(err));
-});
+router.get("/all", getAllCities);
 
 //POST a new city
-router.post("/", async (req, res) => {
-  const { name, country } = req.body;
-  try {
-    const city = await cityModel.create({ name, country });
-    res.status(200).json(city);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+router.post("/", postCity);
 
 module.exports = router;

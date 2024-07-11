@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cities = require("./routes/cities");
+const itineraries = require("./routes/itineraries");
 const app = express();
 const router = express.Router();
 const db = require("./keys").mongoUri;
@@ -23,6 +24,7 @@ app.use(
 app.use(cors());
 
 app.use("/cities", cities);
+app.use("/itineraries", itineraries);
 
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the app" });

@@ -6,16 +6,15 @@ const itineraryModel = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  profilePic: {
+  profile_pic: {
     type: String,
-    required: true,
   },
   rating: {
-    type: Number,
+    type: mongoose.Types.Decimal128,
     required: true,
   },
   duration: {
-    type: Number,
+    type: String,
     required: true,
   },
   price: {
