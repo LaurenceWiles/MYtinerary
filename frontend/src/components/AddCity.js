@@ -64,6 +64,7 @@ const AddCity = () => {
         )}
         {successMessage && (
           <Alert color="success" variant="soft" className="success-alert">
+            sx={{ width: "100%" }}
             {successMessage}
           </Alert>
         )}
