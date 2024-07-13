@@ -27,8 +27,8 @@ const Login = () => {
         <li>
           <Button
             onClick={() => openModal("login")}
-            variant="outlined"
-            color="neutral"
+            variant="soft"
+            color="primary"
           >
             Log in
           </Button>
@@ -36,8 +36,8 @@ const Login = () => {
         <li>
           <Button
             onClick={() => openModal("register")}
-            variant="outlined"
-            color="neutral"
+            variant="soft"
+            color="primary"
           >
             Create Account
           </Button>

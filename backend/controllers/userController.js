@@ -83,8 +83,17 @@ const logoutUser = (req, res) => {
   });
 };
 
+const authCheck = (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ isAuthenticated: true, user: req.user });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
+  authCheck,
 };

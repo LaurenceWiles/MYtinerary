@@ -1,25 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import {
+  loadUser as loadUserService,
+  login as loginService,
+  logout as logoutService,
+} from "../services/servicesUser";
 
 export const loadUser = createAsyncThunk("auth/loadUser", async () => {
-  const res = await axios.get("/api/users/auth-check");
-  return res.data;
+  const data = await loadUserService();
+  return data;
 });
 
 export const login = createAsyncThunk(
   "auth/login",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await axios.post("/api/users/login", formData);
-      return res.data;
+      const data = await loginService(formData);
+      return data;
     } catch (err) {
-      return rejectWithValue(err.response.data);
+      return rejectWithValue(err.message);
     }
   }
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
-  await axios.get("/api/users/logout");
+  await logoutService();
 });
 
 const authSlice = createSlice({

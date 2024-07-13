@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authSlice";
-import axios from "axios";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
@@ -62,7 +61,7 @@ const LoginForm = ({ closeModal }) => {
         <Button
           type="submit"
           variant="solid"
-          color="neutral"
+          color="primary"
           sx={{ width: "100%" }}
         >
           Login

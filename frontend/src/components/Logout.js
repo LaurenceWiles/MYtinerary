@@ -27,8 +27,9 @@ const Logout = () => {
     <div>
       <Button
         onClick={() => openModal("login")}
-        variant="outlined"
-        color="neutral"
+        variant="soft"
+        color="primary"
+        style={{ marginLeft: "auto", marginRight: "auto", display: "block" }}
       >
         Log out
       </Button>
@@ -56,10 +57,10 @@ const Logout = () => {
       >
         <h2>Are you sure?</h2>
         <div style={{ textAlign: "center" }}>
-          <button onClick={handleLogout}>Logout</button>
-          <button onClick={closeModal} style={{ marginLeft: "10px" }}>
+          <Button onClick={handleLogout}>Logout</Button>
+          <Button onClick={closeModal} style={{ marginLeft: "10px" }}>
             Cancel
-          </button>
+          </Button>
         </div>
       </Modal>
     </div>

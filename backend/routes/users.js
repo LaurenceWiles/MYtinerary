@@ -4,6 +4,7 @@ const {
   registerUser,
   loginUser,
   logoutUser,
+  authCheck,
 } = require("../controllers/userController");
 
 // Register
@@ -14,5 +15,7 @@ router.post("/login", loginUser);
 
 // Logout
 router.get("/logout", logoutUser);
+
+router.get("/auth-check", authCheck);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { registerUser } from "../services/servicesUser";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
@@ -22,12 +22,12 @@ const CreateAccountForm = ({ closeModal }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/users/register", formData);
-      setSuccess(res.data.msg);
+      const res = await registerUser(formData);
+      setSuccess(res.msg);
       setErrors([]);
       closeModal();
     } catch (err) {
-      setErrors(err.response.data.errors || []);
+      setErrors(err.message || []);
     }
   };
 
@@ -93,7 +93,7 @@ const CreateAccountForm = ({ closeModal }) => {
         <Button
           type="submit"
           variant="solid"
-          color="neutral"
+          color="primary"
           sx={{ width: "100%" }}
         >
           Create Account
