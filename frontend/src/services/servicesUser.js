@@ -6,6 +6,9 @@ export const loadUser = async () => {
     credentials: "include",
   });
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error("Not authenticated");
+    }
     throw new Error("Failed to load user");
   }
   const data = await response.json();

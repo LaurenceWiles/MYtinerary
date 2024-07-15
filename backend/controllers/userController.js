@@ -87,7 +87,7 @@ const authCheck = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ isAuthenticated: true, user: req.user });
   } else {
-    res.json({ isAuthenticated: false });
+    res.status(401).json({ isAuthenticated: false });
   }
 };
 

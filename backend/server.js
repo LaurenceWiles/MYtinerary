@@ -21,7 +21,7 @@ require("./config/passport")(passport);
 app.use(
   session({
     secret: "secret", // Change this to a more secure secret in a real application
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   })
 );

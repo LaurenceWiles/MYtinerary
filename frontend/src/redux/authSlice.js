@@ -5,10 +5,17 @@ import {
   logout as logoutService,
 } from "../services/servicesUser";
 
-export const loadUser = createAsyncThunk("auth/loadUser", async () => {
-  const data = await loadUserService();
-  return data;
-});
+export const loadUser = createAsyncThunk(
+  "auth/loadUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await loadUserService();
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -29,7 +36,7 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    isAuthenticated: null,
+    isAuthenticated: false,
     user: null,
     loading: true,
     error: null,
