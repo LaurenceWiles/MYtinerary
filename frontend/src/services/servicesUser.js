@@ -1,4 +1,4 @@
-const apiURL = "http://localhost:4000/users/";
+const apiURL = "https://localhost:4000/auth/";
 
 export const loadUser = async () => {
   const response = await fetch(apiURL + "auth-check", {
@@ -56,6 +56,24 @@ export const registerUser = async (formData) => {
     const errorData = await response.json();
     throw new Error(errorData.errors || "Failed to register");
   }
+  const data = await response.json();
+  return data;
+};
+
+export const googleLoginService = async (tokenId) => {
+  const response = await fetch(apiURL + "google", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ tokenId }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.msg || "Failed to authenticate with Google");
+  }
+
   const data = await response.json();
   return data;
 };

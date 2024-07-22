@@ -3,6 +3,7 @@ import {
   loadUser as loadUserService,
   login as loginService,
   logout as logoutService,
+  googleLoginService,
 } from "../services/servicesUser";
 
 export const loadUser = createAsyncThunk(
@@ -32,6 +33,18 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async () => {
   await logoutService();
 });
+
+export const googleLogin = createAsyncThunk(
+  "auth/googleLogin",
+  async (tokenId, { rejectWithValue }) => {
+    try {
+      const data = await googleLoginService(tokenId);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -71,6 +84,18 @@ const authSlice = createSlice({
         state.user = null;
         state.loading = false;
         state.error = null;
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
+        state.isAuthenticated = false;
+        state.user = null;
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

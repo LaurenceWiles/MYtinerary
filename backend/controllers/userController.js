@@ -1,6 +1,10 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require("../models/userModel");
+const { OAuth2Client } = require("google-auth-library");
+const keys = require("../keys");
+
+const client = new OAuth2Client(keys.googleClientID);
 
 // Utility function to handle errors
 const handleErrors = (errors, res) => {
@@ -83,6 +87,7 @@ const logoutUser = (req, res) => {
   });
 };
 
+// Auth Check
 const authCheck = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ isAuthenticated: true, user: req.user });
@@ -91,9 +96,60 @@ const authCheck = (req, res) => {
   }
 };
 
+// Google Auth
+const googleAuth = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+// Google Auth Callback
+const googleAuthCallback = passport.authenticate("google", {
+  failureRedirect: "/login",
+  successRedirect: "/",
+});
+
+// Google Login
+const googleLogin = async (req, res) => {
+  console.log("Received POST request at /auth/google", req.body);
+  const { tokenId } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: keys.googleClientID,
+    });
+    const payload = ticket.getPayload();
+    const { sub, email, name } = payload;
+
+    let user = await User.findOne({ googleId: sub });
+
+    if (!user) {
+      user = new User({
+        googleId: sub,
+        email,
+        name,
+      });
+      await user.save();
+    }
+
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error("Error logging in user:", err);
+        return res.status(500).json({ msg: "Server error" });
+      }
+      res.status(200).json(user);
+    });
+  } catch (err) {
+    console.error("Error in Google login:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
   authCheck,
+  googleAuth,
+  googleAuthCallback,
+  googleLogin,
 };

@@ -19,10 +19,13 @@
     "env-cmd": "^10.1.0",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "google-auth-library": "^9.11.0",
+    "https": "^1.0.0",
     "mongodb": "^6.6.1",
     "mongoose": "^8.3.4",
     "nodemon": "^3.1.0",
     "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0"
   }
 }
