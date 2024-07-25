@@ -1,4 +1,4 @@
-const apiURL = "https://localhost:4000/auth/";
+const apiURL = "http://localhost:4000/users/";
 
 export const loadUser = async () => {
   const response = await fetch(apiURL + "auth-check", {

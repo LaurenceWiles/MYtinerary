@@ -104,9 +104,22 @@ const googleAuth = passport.authenticate("google", {
 
 // Google Auth Callback
 const googleAuthCallback = (req, res, next) => {
-  passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000",
-    successRedirect: "http://localhost:3000",
+  passport.authenticate("google", (err, user, info) => {
+    if (err) {
+      console.error("Error during Google authentication:", err);
+      return res.redirect("http://localhost:3000/error");
+    }
+    if (!user) {
+      console.log("Authentication failed:", info);
+      return res.redirect("http://localhost:3000/login");
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error("Error logging in user:", err);
+        return res.redirect("http://localhost:3000/error");
+      }
+      return res.redirect("http://localhost:3000");
+    });
   })(req, res, next);
 };
 

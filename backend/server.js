@@ -10,8 +10,7 @@ const passport = require("passport");
 const app = express();
 
 const corsOptions = {
-  origin: "https://localhost:3000",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: "http://localhost:3000",
   credentials: true,
 };
 
@@ -23,6 +22,7 @@ app.use(
     extended: true,
   })
 );
+app.use(cors(corsOptions));
 app.use(
   session({
     secret: "secret", // Change this to a more secure secret in a real application
@@ -33,8 +33,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -49,24 +47,15 @@ app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the app" });
 });
 
-app.get("/test", (req, res) => {
-  res.send("Test route working");
-});
-
 const db = require("./keys").mongoUri;
 
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db)
   .then(() => {
-    const options = {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.cert"),
-    };
-
-    https.createServer(options, app).listen(4000, () => {
-      console.log("db connected", "Server running on https://localhost:4000");
+    app.listen(4000, () => {
+      console.log("db connected", "4000");
     });
   })
   .catch((error) => {
-    console.error("Database connection:", error);
+    console.log(error);
   });

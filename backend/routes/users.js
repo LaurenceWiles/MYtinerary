@@ -22,23 +22,9 @@ router.get("/logout", logoutUser);
 router.get("/auth-check", authCheck);
 
 // Google Auth
-router.get(
-  "/auth/google",
-  (req, res, next) => {
-    console.log("Google Auth Route Hit");
-    next();
-  },
-  googleAuth
-);
+router.get("/auth/google", googleAuth);
 
 // Google Auth Callback
-router.get(
-  "/auth/google/callback",
-  (req, res, next) => {
-    console.log("Google Auth Callback Route Hit");
-    next();
-  },
-  googleAuthCallback
-);
+router.get("/auth/google/callback", googleAuthCallback);
 
 module.exports = router;
