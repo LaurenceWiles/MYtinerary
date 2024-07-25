@@ -1,6 +1,10 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require("../models/userModel");
+const { OAuth2Client } = require("google-auth-library");
+const keys = require("../keys");
+
+const client = new OAuth2Client(keys.googleClientID);
 
 // Utility function to handle errors
 const handleErrors = (errors, res) => {
@@ -83,6 +87,7 @@ const logoutUser = (req, res) => {
   });
 };
 
+// Auth Check
 // Auth Check
 const authCheck = (req, res) => {
   if (req.isAuthenticated()) {

@@ -1,4 +1,4 @@
-const apiURL = "http://localhost:4000/";
+const apiURL = "https://localhost:4000/";
 
 export const fetchAllCities = async () => {
   const response = await fetch(apiURL + "cities/all", {

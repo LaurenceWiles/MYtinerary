@@ -10,7 +10,8 @@ const passport = require("passport");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 
@@ -55,12 +56,17 @@ app.get("/test", (req, res) => {
 const db = require("./keys").mongoUri;
 
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    app.listen("4000", () => {
-      console.log("db connected", "4000");
+    const options = {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert"),
+    };
+
+    https.createServer(options, app).listen(4000, () => {
+      console.log("db connected", "Server running on https://localhost:4000");
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error("Database connection:", error);
   });
