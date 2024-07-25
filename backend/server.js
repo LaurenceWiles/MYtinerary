@@ -1,15 +1,13 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const cities = require("./routes/cities");
-const itineraries = require("./routes/itineraries");
-const users = require("./routes/users");
-const app = express();
-const router = express.Router();
-const db = require("./keys").mongoUri;
 const session = require("express-session");
 const passport = require("passport");
+
+const app = express();
 
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -18,6 +16,12 @@ const corsOptions = {
 
 require("./config/passport")(passport);
 
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(
   session({
     secret: "secret", // Change this to a more secure secret in a real application
@@ -29,28 +33,26 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors(corsOptions));
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-app.use(bodyParser.json());
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-
-app.use(cors(corsOptions));
-
-app.use("/cities", cities);
-app.use("/itineraries", itineraries);
-app.use("/users", users);
+app.use("/cities", require("./routes/cities"));
+app.use("/itineraries", require("./routes/itineraries"));
+app.use("/users", require("./routes/users"));
 
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the app" });
 });
+
+app.get("/test", (req, res) => {
+  res.send("Test route working");
+});
+
+const db = require("./keys").mongoUri;
 
 mongoose
   .connect(db)

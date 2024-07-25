@@ -83,6 +83,7 @@ const logoutUser = (req, res) => {
   });
 };
 
+// Auth Check
 const authCheck = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ isAuthenticated: true, user: req.user });
@@ -91,9 +92,24 @@ const authCheck = (req, res) => {
   }
 };
 
+// Google Auth
+const googleAuth = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+// Google Auth Callback
+const googleAuthCallback = (req, res, next) => {
+  passport.authenticate("google", {
+    failureRedirect: "http://localhost:3000",
+    successRedirect: "http://localhost:3000",
+  })(req, res, next);
+};
+
 module.exports = {
   registerUser,
   loginUser,
   logoutUser,
   authCheck,
+  googleAuth,
+  googleAuthCallback,
 };

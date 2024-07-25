@@ -4,6 +4,7 @@ import { login } from "../redux/authSlice";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
+import GoogleButton from "react-google-button";
 
 const LoginForm = ({ closeModal }) => {
   const [formData, setFormData] = useState({
@@ -67,6 +68,12 @@ const LoginForm = ({ closeModal }) => {
           Login
         </Button>
       </form>
+      <p>Or</p>
+      <GoogleButton
+        onClick={() => {
+          window.location.href = "http://localhost:4000/users/auth/google";
+        }}
+      />
     </Box>
   );
 };
