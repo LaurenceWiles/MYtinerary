@@ -7,8 +7,7 @@ const userModel = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    default: "",
   },
   password: {
     type: String,
@@ -19,6 +18,10 @@ const userModel = new mongoose.Schema({
   },
   googleId: {
     type: String,
+  },
+  twitterId: {
+    type: String,
+    unique: true,
   },
 });
 

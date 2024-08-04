@@ -1,3 +1,4 @@
+/*
 module.exports = {
   ensureAuthenticated: function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -6,3 +7,4 @@ module.exports = {
     res.status(401).json({ msg: "Please log in to view this resource" });
   },
 };
+*/

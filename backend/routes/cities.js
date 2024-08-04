@@ -12,6 +12,6 @@ router.get("/", (req, res) => {
 router.get("/all", getAllCities);
 
 //POST a new city
-router.post("/", ensureAuthenticated, postCity);
+router.post("/", postCity);
 
 module.exports = router;

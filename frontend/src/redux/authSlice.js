@@ -4,6 +4,7 @@ import {
   login as loginService,
   logout as logoutService,
   googleLoginService,
+  twitterLoginService,
 } from "../services/servicesUser";
 
 export const loadUser = createAsyncThunk(
@@ -40,6 +41,17 @@ export const googleLogin = createAsyncThunk(
     try {
       const data = await googleLoginService(tokenId);
       return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const twitterLogin = createAsyncThunk(
+  "auth/twitterLogin",
+  async (_, { rejectWithValue }) => {
+    try {
+      await twitterLoginService();
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -92,6 +104,18 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(googleLogin.rejected, (state, action) => {
+        state.isAuthenticated = false;
+        state.user = null;
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(twitterLogin.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(twitterLogin.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = null;
         state.loading = false;

@@ -7,6 +7,8 @@ const {
   authCheck,
   googleAuth,
   googleAuthCallback,
+  twitterAuth,
+  twitterAuthCallback,
 } = require("../controllers/userController");
 
 // Register
@@ -26,5 +28,11 @@ router.get("/auth/google", googleAuth);
 
 // Google Auth Callback
 router.get("/auth/google/callback", googleAuthCallback);
+
+// Twitter Auth
+router.get("/auth/twitter", twitterAuth);
+
+// Twitter Auth Callback
+router.get("/auth/twitter/callback", twitterAuthCallback);
 
 module.exports = router;

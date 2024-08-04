@@ -88,7 +88,6 @@ const logoutUser = (req, res) => {
 };
 
 // Auth Check
-// Auth Check
 const authCheck = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ isAuthenticated: true, user: req.user });
@@ -107,16 +106,52 @@ const googleAuthCallback = (req, res, next) => {
   passport.authenticate("google", (err, user, info) => {
     if (err) {
       console.error("Error during Google authentication:", err);
-      return res.redirect("http://localhost:3000/error");
+      return res.redirect(
+        "http://localhost:3000/?error=Authentication%20Failed"
+      );
     }
     if (!user) {
       console.log("Authentication failed:", info);
-      return res.redirect("http://localhost:3000/login");
+      return res.redirect(
+        "http://localhost:3000/?error=Authentication%20Failed"
+      );
     }
     req.logIn(user, (err) => {
       if (err) {
         console.error("Error logging in user:", err);
-        return res.redirect("http://localhost:3000/error");
+        return res.redirect(
+          "http://localhost:3000/?error=Authentication%20Failed"
+        );
+      }
+      return res.redirect("http://localhost:3000");
+    });
+  })(req, res, next);
+};
+
+// Twitter Auth
+const twitterAuth = passport.authenticate("twitter");
+
+// Twitter Auth Callback
+const twitterAuthCallback = (req, res, next) => {
+  passport.authenticate("twitter", (err, user, info) => {
+    if (err) {
+      console.error("Error during Twitter authentication:", err);
+      return res.redirect(
+        "http://localhost:3000/?error=Authentication%20Failed"
+      );
+    }
+    if (!user) {
+      console.log("Twitter authentication failed:", info);
+      return res.redirect(
+        "http://localhost:3000/?error=Authentication%20Failed"
+      );
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error("Error logging in user:", err);
+        return res.redirect(
+          "http://localhost:3000/?error=Authentication%20Failed"
+        );
       }
       return res.redirect("http://localhost:3000");
     });
@@ -130,4 +165,6 @@ module.exports = {
   authCheck,
   googleAuth,
   googleAuthCallback,
+  twitterAuth,
+  twitterAuthCallback,
 };

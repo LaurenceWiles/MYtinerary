@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import LoginForm from "./LoginForm";
 import CreateAccountForm from "./CreateAccountForm";
 import Button from "@mui/joy/Button";
+import { parseQueryParams } from "../utils/parseQueryParams";
 
 Modal.setAppElement("#root");
 
 const Login = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [authError, setAuthError] = useState(null);
+
+  useEffect(() => {
+    const { error } = parseQueryParams();
+    if (error) {
+      setAuthError(error);
+      setModalContent("login");
+      setModalIsOpen(true);
+    }
+  }, []);
 
   const openModal = (content) => {
     setModalContent(content);
@@ -18,6 +29,8 @@ const Login = () => {
   const closeModal = () => {
     setModalIsOpen(false);
     setModalContent(null);
+    setAuthError(null);
+    window.history.replaceState({}, document.title, "/");
   };
 
   return (
@@ -66,7 +79,9 @@ const Login = () => {
           },
         }}
       >
-        {modalContent === "login" && <LoginForm closeModal={closeModal} />}
+        {modalContent === "login" && (
+          <LoginForm closeModal={closeModal} authError={authError} />
+        )}
         {modalContent === "register" && (
           <CreateAccountForm closeModal={closeModal} />
         )}

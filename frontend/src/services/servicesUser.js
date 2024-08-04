@@ -77,3 +77,7 @@ export const googleLoginService = async (tokenId) => {
   const data = await response.json();
   return data;
 };
+
+export const twitterLoginService = async () => {
+  window.location.href = `${apiURL}auth/twitter`;
+};

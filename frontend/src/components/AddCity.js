@@ -57,14 +57,23 @@ const AddCity = () => {
           onChange={(e) => setCountry(e.target.value)}
           value={country}
         />
+        {localError && (
+          <Alert color="danger" variant="soft" className="error-alert">
+            {localError}
+          </Alert>
+        )}
         {error && (
           <Alert color="danger" variant="soft" className="error-alert">
             {error}
           </Alert>
         )}
         {successMessage && (
-          <Alert color="success" variant="soft" className="success-alert">
+          <Alert
+            color="success"
+            variant="soft"
+            className="success-alert"
             sx={{ width: "100%" }}
+          >
             {successMessage}
           </Alert>
         )}

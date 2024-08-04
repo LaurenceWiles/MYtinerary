@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const TwitterStrategy = require("passport-twitter").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 const keys = require("../keys");
@@ -53,6 +54,39 @@ module.exports = function (passport) {
         } catch (err) {
           console.log(err);
           return done(err);
+        }
+      }
+    )
+  );
+
+  passport.use(
+    new TwitterStrategy(
+      {
+        consumerKey: process.env.TWITTER_CONSUMER_KEY,
+        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+        callbackURL: "http://localhost:4000/users/auth/twitter/callback",
+        includeEmail: true,
+      },
+      async (token, tokenSecret, profile, done) => {
+        try {
+          let email =
+            profile.emails && profile.emails[0] && profile.emails[0].value;
+
+          let user = await User.findOne({ twitterId: profile.id });
+
+          if (!user) {
+            user = new User({
+              twitterId: profile.id,
+              name: profile.displayName,
+              email: email || "",
+            });
+            await user.save();
+          }
+
+          return done(null, user);
+        } catch (err) {
+          console.error("Error during Twitter authentication:", err);
+          return done(err, false, { message: "Internal Server Error" });
         }
       }
     )

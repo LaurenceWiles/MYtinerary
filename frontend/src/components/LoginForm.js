@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authSlice";
 import Box from "@mui/joy/Box";
@@ -6,15 +6,22 @@ import Button from "@mui/joy/Button";
 import Textarea from "@mui/joy/Textarea";
 import GoogleButton from "react-google-button";
 
-const LoginForm = ({ closeModal }) => {
+const LoginForm = ({ closeModal, authError }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const error = useSelector((state) => state.auth.error);
   const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { email, password } = formData;
+
+  useEffect(() => {
+    if (authError) {
+      setErrorMessage(authError);
+    }
+  }, [authError]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,6 +47,7 @@ const LoginForm = ({ closeModal }) => {
     >
       <h2>Log in</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <form onSubmit={onSubmit}>
         <Textarea
           type="email"
@@ -74,6 +82,16 @@ const LoginForm = ({ closeModal }) => {
           window.location.href = "http://localhost:4000/users/auth/google";
         }}
       />
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => {
+          window.location.href = "http://localhost:4000/users/auth/twitter";
+        }}
+        sx={{ mt: 1, width: "100%" }}
+      >
+        Sign in with Twitter
+      </Button>
     </Box>
   );
 };
