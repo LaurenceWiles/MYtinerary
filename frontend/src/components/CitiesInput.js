@@ -4,10 +4,12 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import useCityData from "../hooks/useCityData";
+import { useNavigate } from "react-router-dom";
 
 const CitiesInput = ({ onChange }) => {
   const { list, loading, error } = useCityData();
   const [filter, setFilter] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = useCallback(
     (e) => {
@@ -15,6 +17,15 @@ const CitiesInput = ({ onChange }) => {
       onChange(e.target.value);
     },
     [onChange]
+  );
+
+  const handleSelect = useCallback(
+    (event, value) => {
+      if (value) {
+        navigate(`/itineraries/${encodeURIComponent(value)}`);
+      }
+    },
+    [navigate]
   );
 
   const filteredCities = useMemo(() => {
@@ -40,6 +51,7 @@ const CitiesInput = ({ onChange }) => {
         options={filteredCities}
         sx={{ width: 300 }}
         onInputChange={(_, value) => handleChange({ target: { value } })}
+        onChange={handleSelect}
         renderInput={(params) => (
           <TextField {...params} label="Search cities" />
         )}
