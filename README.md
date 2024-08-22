@@ -67,12 +67,14 @@ MYtinerary is a mobile web application that allows users to explore and share th
     TWITTER_CLIENT_SECRET=your_twitter_client_secret
     ```
 4. **Run the application**
+   
    + The project is set up to use **concurrently**, so starting the backend server will also start the client side automatically.
    + To start both the server and client, run the following command in the server directory:
      ```bash
      npm start
      ```
  5. **Access the application**
+    
     + Open your browser and go to **`http://localhost:3000`**.
    
 ## Usage
