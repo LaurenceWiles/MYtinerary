@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the app" });
 });
 
-const db = require("./keys").mongoUri;
+const db = process.env.MONGO_URI;
 
 mongoose
   .connect(db)

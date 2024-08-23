@@ -4,7 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const TwitterStrategy = require("passport-twitter").Strategy;
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
-const keys = require("../keys");
+//const keys = require("../keys");
 
 module.exports = function (passport) {
   passport.use(
