@@ -1,12 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
 
   return (
-    <div>
-      <h1>{decodeURIComponent(city)}</h1>
+    <div className="itineraries-page">
+      <h1 className="text-center itineraries-page-header">
+        {decodeURIComponent(city)}
+      </h1>
+      <p className="text-center">Itineraries for {decodeURIComponent(city)}</p>
+      <Footer />
     </div>
   );
 };
