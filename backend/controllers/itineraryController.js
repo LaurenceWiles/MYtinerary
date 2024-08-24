@@ -10,12 +10,17 @@ const getAllItineraries = (req, res) => {
 };
 
 const getItinerary = (req, res) => {
+  const city = req.query.city;
+
   itineraryModel
-    .find({ city: req.params.city })
+    .find({ city: city })
     .then((files) => {
       res.send(files);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error("Error Fetching Itineraries:", err);
+      res.status(500).send({ error: "Failed to fetch itineraries" });
+    });
 };
 
 const postItinerary = async (req, res) => {

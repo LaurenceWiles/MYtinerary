@@ -10,6 +10,9 @@ const {
 
 // Test route
 router.get("/", (req, res) => {
+  if (req.query.city) {
+    return getItinerary(req, res);
+  }
   res.status(200).send({ msg: "Itineraries test route." });
 });
 

@@ -22,7 +22,7 @@ const itineraryModel = new mongoose.Schema({
     required: true,
   },
   hashtags: {
-    type: String,
+    type: [String],
     default: [],
   },
   city: {
