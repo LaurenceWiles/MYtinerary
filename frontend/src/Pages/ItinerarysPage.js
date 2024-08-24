@@ -2,52 +2,37 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import useItineraryData from "../hooks/useItineraryData";
+import { Container, Grid, CircularProgress, Typography } from "@mui/material";
+import ItineraryCard from "../components/itineraryCard";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
-  const cityName = decodeURIComponent(city);
-  const { list, loading, error } = useItineraryData(cityName);
+  const { list, loading, error } = useItineraryData(city);
 
-  useEffect(() => {
-    if (list && list.length > 0) {
-      list.forEach((itinerary) => {
-        console.log(
-          "Hashtags for itinerary:",
-          itinerary._id,
-          itinerary.hashtags
-        );
-      });
-    }
-  }, [list]);
+  if (loading) return <CircularProgress />;
+  if (error)
+    return <Typography color="error">Error loading itineraries</Typography>;
+  if (list.length === 0)
+    return (
+      <Typography>
+        No itineraries found for {decodeURIComponent(city)}
+      </Typography>
+    );
 
   return (
-    <div className="itineraries-page text-center">
-      <h1 className="itineraries-page-header">{cityName}</h1>
-      <p>Itineraries for {cityName}:</p>
-      {loading && <p>Loading itineraries...</p>}
-      {error && <p>Error: {error}</p>}
-      {!loading && !error && list.length === 0 && (
-        <p>No itineraries found for {cityName}.</p>
-      )}
-
-      <ul>
+    <Container>
+      <Typography variant="h4" gutterBottom>
+        Itineraries for {decodeURIComponent(city)}
+      </Typography>
+      <Grid container spacing={2}>
         {list.map((itinerary) => (
-          <li key={itinerary._id}>
-            <h3>{itinerary.title}</h3>
-            <p>Duration: {itinerary.duration} hours</p>
-            <p>Price: ${itinerary.price}</p>
-            <p>Rating: {itinerary.rating.$numberDecimal}</p>
-            <p>
-              Hashtags:{" "}
-              {itinerary.hashtags && itinerary.hashtags.length > 0
-                ? itinerary.hashtags.join(", ")
-                : "No hashtags available"}
-            </p>
-          </li>
+          <Grid item xs={12} sm={6} md={4} key={itinerary._id}>
+            <ItineraryCard itinerary={itinerary} />
+          </Grid>
         ))}
-      </ul>
+      </Grid>
       <Footer />
-    </div>
+    </Container>
   );
 };
 
