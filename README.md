@@ -66,6 +66,9 @@ MYtinerary is a mobile web application that allows users to explore and share th
     TWITTER_CLIENT_ID=your_twitter_client_id
     TWITTER_CLIENT_SECRET=your_twitter_client_secret
     ```
+
+    Note: You will need to have your own MongoDB connection string and API keys for Google and Twitter.
+    
 4. **Run the application**
    
    + The project is set up to use **concurrently**, so starting the backend server will also start the client side automatically.
