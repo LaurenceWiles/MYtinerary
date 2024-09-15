@@ -25,7 +25,12 @@ const ItinerarysPage = () => {
             <Typography variant="h4" gutterBottom>
               {decodeURIComponent(city)}
             </Typography>
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              style={{ minHeight: "100vh" }}
+            >
               {list.map((itinerary) => (
                 <Grid item xs={12} sm={6} md={4} key={itinerary._id}>
                   <ItineraryCard itinerary={itinerary} />
