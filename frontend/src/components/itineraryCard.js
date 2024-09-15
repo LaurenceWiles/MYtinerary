@@ -25,9 +25,9 @@ const ItineraryCard = ({ itinerary }) => {
           Price: ${price}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Rating: {rating.toString()}
+          Rating: {rating}
         </Typography>
-        <Stack direction="row" spacing={1} mt={2}>
+        <Stack direction="column" spacing={1} mt={2}>
           {hashtags.map((tag, index) => (
             <Typography key={index} variant="body2" color="primary">
               #{tag}

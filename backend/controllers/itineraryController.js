@@ -4,9 +4,18 @@ const getAllItineraries = (req, res) => {
   itineraryModel
     .find({})
     .then((files) => {
-      res.send(files);
+      const formattedFiles = files.map((file) => {
+        return {
+          ...file.toObject(),
+          rating: parseFloat(file.rating.toString()),
+        };
+      });
+      res.send(formattedFiles);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error("Error Fetching All Itineraries:", err);
+      res.status(500).send({ error: "Failed to fetch itineraries" });
+    });
 };
 
 const getItinerary = (req, res) => {
@@ -15,7 +24,13 @@ const getItinerary = (req, res) => {
   itineraryModel
     .find({ city: city })
     .then((files) => {
-      res.send(files);
+      const formattedFiles = files.map((file) => {
+        return {
+          ...file.toObject(),
+          rating: parseFloat(file.rating.toString()),
+        };
+      });
+      res.send(formattedFiles);
     })
     .catch((err) => {
       console.error("Error Fetching Itineraries:", err);
