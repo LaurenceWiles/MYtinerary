@@ -39,29 +39,45 @@ const getItinerary = (req, res) => {
 };
 
 const postItinerary = async (req, res) => {
-  const { title, profile_pic, rating, duration, price, hashtags, city } =
-    req.body;
+  const {
+    title,
+    profile_pic = "",
+    rating,
+    duration,
+    price,
+    hashtags = [],
+    city,
+  } = req.body;
 
-  if (!title || rating == null || !duration || price == null) {
+  if (!title || rating == null || !duration || price == null || !city) {
     return res
       .status(400)
-      .json({ error: "Title, rating, duration, and price are required" });
+      .json({ error: "Title, rating, duration, price, and city are required" });
   }
 
   try {
     const itinerary = await itineraryModel.create({
       title,
       profile_pic,
-      rating,
+      rating: mongoose.Types.Decimal128.fromString(rating.toString()),
       duration,
       price,
-      hashtags,
+      hashtags: hashtags.length
+        ? hashtags.split(",").map((tag) => tag.trim())
+        : [],
       city,
     });
+
     res.status(201).json(itinerary);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to create itinerary" });
+    if (error.code === 11000) {
+      res
+        .status(400)
+        .json({ error: "Itinerary with this title already exists" });
+    } else {
+      console.error(error);
+      res.status(500).json({ error: "Failed to create itinerary" });
+    }
   }
 };
 
