@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import useItineraryData from "../hooks/useItineraryData";
-import { Container, Grid, CircularProgress, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  CircularProgress,
+  Typography,
+  Button,
+} from "@mui/material";
 import ItineraryCard from "../components/itineraryCard";
-import AddItinerary from "../components/AddItinerary";
+import AddItineraryModal from "../components/AddItineraryModal";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
   const { list, loading, error } = useItineraryData(city);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div className="itineraries-page text-center">
@@ -26,6 +36,9 @@ const ItinerarysPage = () => {
             <Typography variant="h4" gutterBottom>
               {decodeURIComponent(city)}
             </Typography>
+            <Button variant="contained" color="primary" onClick={handleOpen}>
+              Add New Itinerary
+            </Button>
             <Grid
               container
               spacing={2}
@@ -40,9 +53,10 @@ const ItinerarysPage = () => {
             </Grid>
           </>
         )}
-        <AddItinerary city={decodeURIComponent(city)} />
       </Container>
+
       <Footer />
+      <AddItineraryModal open={open} handleClose={handleClose} />
     </div>
   );
 };
