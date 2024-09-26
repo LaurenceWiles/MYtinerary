@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import useItineraryData from "../hooks/useItineraryData";
 import { Container, Grid, CircularProgress, Typography } from "@mui/material";
 import ItineraryCard from "../components/itineraryCard";
+import AddItinerary from "../components/AddItinerary";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
@@ -39,6 +40,7 @@ const ItinerarysPage = () => {
             </Grid>
           </>
         )}
+        <AddItinerary city={decodeURIComponent(city)} />
       </Container>
       <Footer />
     </div>
