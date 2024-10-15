@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 import ItineraryCard from "../components/itineraryCard";
 import AddItineraryModal from "../components/AddItineraryModal";
+import { useSelector } from "react-redux";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
   const { list, loading, error } = useItineraryData(city);
   const [open, setOpen] = useState(false);
+  const auth = useSelector((state) => state.auth);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -26,9 +28,12 @@ const ItinerarysPage = () => {
         <Typography variant="h4" gutterBottom>
           {decodeURIComponent(city)}
         </Typography>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
-          Add New Itinerary
-        </Button>
+        {auth.isAuthenticated && (
+          <Button variant="contained" color="primary" onClick={handleOpen}>
+            Add New Itinerary
+          </Button>
+        )}
+
         {loading ? (
           <CircularProgress />
         ) : error ? (
