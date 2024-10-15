@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const itineraryModel = require("../models/itineraryModel");
 
 const getAllItineraries = (req, res) => {
@@ -55,6 +56,10 @@ const postItinerary = async (req, res) => {
       .json({ error: "Title, rating, duration, price, and city are required" });
   }
 
+  const hashtagsArray = Array.isArray(hashtags)
+    ? hashtags
+    : hashtags.split(",").map((tag) => tag.trim());
+
   try {
     const itinerary = await itineraryModel.create({
       title,
@@ -62,9 +67,7 @@ const postItinerary = async (req, res) => {
       rating: mongoose.Types.Decimal128.fromString(rating.toString()),
       duration,
       price,
-      hashtags: hashtags.length
-        ? hashtags.split(",").map((tag) => tag.trim())
-        : [],
+      hashtags,
       city,
     });
 
