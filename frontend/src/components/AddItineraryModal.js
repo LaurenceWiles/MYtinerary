@@ -7,9 +7,9 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import useUpdateItineraryData from "../hooks/useUpdateItineraryData"; // Add this hook for updating itineraries
+import useUpdateItineraryData from "../hooks/useUpdateItineraryData";
 
-const AddItineraryModal = ({ open, handleClose }) => {
+const AddItineraryModal = ({ open, handleClose, city }) => {
   const { addItinerary } = useUpdateItineraryData();
   const [formData, setFormData] = useState({
     title: "",
@@ -28,7 +28,8 @@ const AddItineraryModal = ({ open, handleClose }) => {
   };
 
   const handleSubmit = async () => {
-    const success = await addItinerary(formData);
+    const formDataWithCity = { ...formData, city };
+    const success = await addItinerary(formDataWithCity);
     if (success) {
       handleClose();
       setFormData({
@@ -80,7 +81,7 @@ const AddItineraryModal = ({ open, handleClose }) => {
         />
         <TextField
           margin="dense"
-          label="Hashtags"
+          label="Hashtags (comma separated)"
           name="hashtags"
           value={formData.hashtags}
           onChange={handleChange}

@@ -16,23 +16,29 @@ const ItineraryCard = ({ itinerary }) => {
       )}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {title}
+          {title || "No Title"}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Duration: {duration}
+          Duration: {duration || "Not specified"}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Price: ${price}
+          Price: ${price !== undefined ? price : "Not specified"}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Rating: {rating}
+          Rating: {rating ? rating.toString() : "Not specified"}
         </Typography>
         <Stack direction="column" spacing={1} mt={2}>
-          {hashtags.map((tag, index) => (
-            <Typography key={index} variant="body2" color="primary">
-              #{tag}
+          {Array.isArray(hashtags) && hashtags.length > 0 ? (
+            hashtags.map((tag, index) => (
+              <Typography key={index} variant="body2" color="primary">
+                #{tag.replace(/^#/, "")}
+              </Typography>
+            ))
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              No hashtags
             </Typography>
-          ))}
+          )}
         </Stack>
       </CardContent>
     </Card>

@@ -6,9 +6,21 @@ const useUpdateItineraryData = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
 
-  const addItinerary = async (data) => {
+  const addItinerary = async (formData) => {
+    const formattedItinerary = {
+      title: formData.title,
+      duration: formData.duration,
+      price: parseFloat(formData.price),
+      rating: parseFloat(formData.rating),
+      hashtags: formData.hashtags.split(" ").map((tag) => tag.trim()),
+      city: formData.city,
+    };
+
     try {
-      const resultAction = await dispatch(addItineraryAsync(data));
+      const resultAction = await dispatch(
+        addItineraryAsync(formattedItinerary)
+      );
+
       if (addItineraryAsync.fulfilled.match(resultAction)) {
         setError(null);
         return true;

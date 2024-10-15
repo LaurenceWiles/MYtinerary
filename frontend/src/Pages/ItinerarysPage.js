@@ -23,22 +23,22 @@ const ItinerarysPage = () => {
   return (
     <div className="itineraries-page text-center">
       <Container className="itineraries-page-container">
+        <Typography variant="h4" gutterBottom>
+          {decodeURIComponent(city)}
+        </Typography>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          Add New Itinerary
+        </Button>
         {loading ? (
           <CircularProgress />
         ) : error ? (
           <Typography color="error">Error loading itineraries</Typography>
         ) : list.length === 0 ? (
           <Typography>
-            No itineraries found for {decodeURIComponent(city)}
+            No itineraries yet for {decodeURIComponent(city)}
           </Typography>
         ) : (
           <>
-            <Typography variant="h4" gutterBottom>
-              {decodeURIComponent(city)}
-            </Typography>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-              Add New Itinerary
-            </Button>
             <Grid
               container
               spacing={2}
@@ -56,7 +56,7 @@ const ItinerarysPage = () => {
       </Container>
 
       <Footer />
-      <AddItineraryModal open={open} handleClose={handleClose} />
+      <AddItineraryModal open={open} handleClose={handleClose} city={city} />
     </div>
   );
 };

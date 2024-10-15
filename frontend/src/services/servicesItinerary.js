@@ -15,6 +15,8 @@ export const fetchItinerariesByCity = async (cityName) => {
 };
 
 export const postItineraryDB = async (itinerary) => {
+  console.log("Data being sent to backend:", itinerary);
+
   const response = await fetch(apiURL + "itineraries", {
     method: "POST",
     headers: {
