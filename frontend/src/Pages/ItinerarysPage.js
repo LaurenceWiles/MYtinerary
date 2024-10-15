@@ -1,26 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import useItineraryData from "../hooks/useItineraryData";
-import {
-  Container,
-  Grid,
-  CircularProgress,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Container, Grid, CircularProgress, Typography } from "@mui/material";
 import ItineraryCard from "../components/itineraryCard";
-import AddItineraryModal from "../components/AddItineraryModal";
-import { useSelector } from "react-redux";
+import AddItinerary from "../components/AddItinerary";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
   const { list, loading, error } = useItineraryData(city);
-  const [open, setOpen] = useState(false);
-  const auth = useSelector((state) => state.auth);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <div className="itineraries-page text-center">
@@ -28,11 +16,7 @@ const ItinerarysPage = () => {
         <Typography variant="h4" gutterBottom>
           {decodeURIComponent(city)}
         </Typography>
-        {auth.isAuthenticated && (
-          <Button variant="contained" color="primary" onClick={handleOpen}>
-            Add New Itinerary
-          </Button>
-        )}
+        <AddItinerary city={city} />
 
         {loading ? (
           <CircularProgress />
@@ -61,7 +45,6 @@ const ItinerarysPage = () => {
       </Container>
 
       <Footer />
-      <AddItineraryModal open={open} handleClose={handleClose} city={city} />
     </div>
   );
 };
