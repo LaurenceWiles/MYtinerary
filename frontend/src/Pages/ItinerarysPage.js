@@ -1,8 +1,15 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import useItineraryData from "../hooks/useItineraryData";
-import { Container, Grid, CircularProgress, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  CircularProgress,
+  Typography,
+  Button,
+  Stack,
+} from "@mui/material";
 import ItineraryCard from "../components/itineraryCard";
 import AddItinerary from "../components/AddItinerary";
 
@@ -16,8 +23,18 @@ const ItinerarysPage = () => {
         <Typography variant="h4" gutterBottom>
           {decodeURIComponent(city)}
         </Typography>
-        <AddItinerary city={city} />
-
+        <Stack spacing={1} sx={{ mb: 2, alignItems: "center" }}>
+          <AddItinerary city={city} />
+          <Button
+            variant="contained"
+            color="secondary"
+            component={Link}
+            to="/cities"
+            style={{ width: "200px" }}
+          >
+            Back to Cities
+          </Button>
+        </Stack>
         {loading ? (
           <CircularProgress />
         ) : error ? (
@@ -43,7 +60,6 @@ const ItinerarysPage = () => {
           </>
         )}
       </Container>
-
       <Footer />
     </div>
   );

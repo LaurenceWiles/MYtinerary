@@ -14,7 +14,12 @@ const AddItinerary = ({ city }) => {
     <>
       {auth.isAuthenticated && (
         <>
-          <Button variant="contained" color="primary" onClick={handleOpen}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpen}
+            style={{ width: "200px", margin: "1rem 0" }}
+          >
             Add New Itinerary
           </Button>
           <AddItineraryModal
