@@ -10,7 +10,7 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-import ItineraryCard from "../components/itineraryCard";
+import ItineraryCard from "../components/ItineraryCard";
 import AddItinerary from "../components/AddItinerary";
 
 const ItinerarysPage = () => {
