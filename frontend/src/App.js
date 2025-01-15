@@ -1,9 +1,9 @@
 import React from "react";
-import LandingPage from "./Pages/LandingPage";
+import LandingPage from "./pages/LandingPage";
 import { Routes, Route } from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CitiesPage from "./Pages/CitiesPage";
-import ItinerarysPage from "./Pages/ItinerarysPage";
+import CitiesPage from "./pages/CitiesPage";
+import ItinerarysPage from "./pages/ItinerarysPage";
 
 function App() {
   return (
