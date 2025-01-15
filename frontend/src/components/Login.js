@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import LoginForm from "./LoginForm";
 import CreateAccountForm from "./CreateAccountForm";
 import Button from "@mui/joy/Button";
-import { parseQueryParams } from "../hooks/parseQueryParams";
+import { parseQueryParams } from "../hooks/useParseQueryParams";
 
 Modal.setAppElement("#root");
 
