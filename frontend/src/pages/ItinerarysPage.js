@@ -29,7 +29,7 @@ const ItinerarysPage = () => {
             variant="contained"
             color="secondary"
             component={Link}
-            to="/cities"
+            to="/cities-page"
             style={{ width: "200px" }}
           >
             Back to Cities
