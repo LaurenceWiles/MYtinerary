@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { registerUser } from "../services/servicesUser";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
