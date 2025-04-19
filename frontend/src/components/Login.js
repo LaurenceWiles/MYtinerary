@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
+import { useState, useEffect } from "react";
+import { Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/joy/Button";
 import LoginForm from "./LoginForm";
 import CreateAccountForm from "./CreateAccountForm";
-import Button from "@mui/joy/Button";
 import { parseQueryParams } from "../hooks/useParseQueryParams";
-
-Modal.setAppElement("#root");
 
 const Login = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -57,35 +56,34 @@ const Login = () => {
         </li>
       </ul>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Auth Modal"
-        shouldCloseOnOverlayClick={true}
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            width: "fit-content",
-            padding: "20px",
-            borderRadius: "8px",
-          },
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-        }}
+      <Dialog
+        open={modalIsOpen}
+        onClose={closeModal}
+        fullWidth
+        maxWidth="xs"
+        aria-labelledby="auth-dialog-title"
       >
-        {modalContent === "login" && (
-          <LoginForm closeModal={closeModal} authError={authError} />
-        )}
-        {modalContent === "register" && (
-          <CreateAccountForm closeModal={closeModal} />
-        )}
-      </Modal>
+        <DialogTitle
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {modalContent === "login" ? "Log In" : "Create Account"}
+          <IconButton onClick={closeModal}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          {modalContent === "login" && (
+            <LoginForm closeModal={closeModal} authError={authError} />
+          )}
+          {modalContent === "register" && (
+            <CreateAccountForm closeModal={closeModal} />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -1,5 +1,3 @@
-import React from "react";
-
 const LandingP = () => {
   return (
     <div className="landing-p text-center">
