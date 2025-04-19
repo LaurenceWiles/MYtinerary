@@ -1,10 +1,9 @@
 import { useCallback, useState, useMemo } from "react";
-import { Spinner, Alert } from "react-bootstrap";
-import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress, Alert, Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import useCityData from "../hooks/useCityData";
-import { useNavigate } from "react-router-dom";
 
 const CitiesInput = ({ onChange }) => {
   const { list, loading, error } = useCityData();
@@ -43,8 +42,19 @@ const CitiesInput = ({ onChange }) => {
   return (
     <div>
       <h2 className="text-center">Find A City</h2>
-      {loading && <Spinner animation="border" />}
-      {error && <Alert variant="danger">{error}</Alert>}
+
+      {loading && (
+        <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+          <CircularProgress />
+        </Box>
+      )}
+
+      {error && (
+        <Box sx={{ my: 2 }}>
+          <Alert severity="error">{error}</Alert>
+        </Box>
+      )}
+
       <Autocomplete
         disablePortal
         id="cities-autocomplete"
