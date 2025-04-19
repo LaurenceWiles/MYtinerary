@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import AddItineraryModal from "./AddItineraryModal";
-import { useSelector } from "react-redux";
 
 const AddItinerary = ({ city }) => {
   const [open, setOpen] = useState(false);

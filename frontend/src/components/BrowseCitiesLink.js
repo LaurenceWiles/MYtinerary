@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Image from "react-bootstrap/Image";
+import { Box } from "@mui/material";
 import CircledRight from "../assets/circled-right-2.png";
 
 const BrowseCitiesLink = () => {
@@ -10,7 +9,16 @@ const BrowseCitiesLink = () => {
       <div className="circled-right-container">
         <div className="circled-right">
           <Link to="/cities-page">
-            <Image src={CircledRight} fluid />
+            <Box
+              component="img"
+              src={CircledRight}
+              alt="Start browsing"
+              sx={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
           </Link>
         </div>
       </div>
