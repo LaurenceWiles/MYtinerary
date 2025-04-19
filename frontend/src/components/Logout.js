@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Modal from "react-modal";
+import {
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  Button as MuiButton,
+} from "@mui/material";
 import Button from "@mui/joy/Button";
 import { logout } from "../redux/authSlice";
-
-Modal.setAppElement("#root");
 
 const Logout = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -26,43 +29,34 @@ const Logout = () => {
   return (
     <div>
       <Button
-        onClick={() => openModal("login")}
+        onClick={openModal}
         variant="soft"
         color="primary"
         style={{ marginLeft: "auto", marginRight: "auto", display: "block" }}
       >
         Log out
       </Button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Logout Confirmation Modal"
-        shouldCloseOnOverlayClick={true}
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            width: "fit-content",
-            padding: "20px",
-            borderRadius: "8px",
-          },
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-        }}
+
+      <Dialog
+        open={modalIsOpen}
+        onClose={closeModal}
+        aria-labelledby="logout-dialog-title"
+        maxWidth="xs"
+        fullWidth
       >
-        <h2>Are you sure?</h2>
-        <div style={{ textAlign: "center" }}>
-          <Button onClick={handleLogout}>Logout</Button>
-          <Button onClick={closeModal} style={{ marginLeft: "10px" }}>
+        <DialogTitle id="logout-dialog-title" sx={{ textAlign: "center" }}>
+          Are you sure you want to log out?
+        </DialogTitle>
+
+        <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
+          <MuiButton onClick={handleLogout} color="primary" variant="contained">
+            Logout
+          </MuiButton>
+          <MuiButton onClick={closeModal} color="inherit" variant="outlined">
             Cancel
-          </Button>
-        </div>
-      </Modal>
+          </MuiButton>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
