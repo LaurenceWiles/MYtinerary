@@ -1,12 +1,20 @@
-import React from "react";
-import Image from "react-bootstrap/Image";
+import { Box } from "@mui/material";
 import Logo from "../assets/MYtineraryLogo.png";
 
 const LandingLogo = () => {
   return (
     <div className="landing-logo-container">
       <div className="landing-logo">
-        <Image src={Logo} fluid />
+        <Box
+          component="img"
+          src={Logo}
+          alt="Start browsing"
+          sx={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+          }}
+        />
       </div>
     </div>
   );
