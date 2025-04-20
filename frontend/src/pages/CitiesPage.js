@@ -1,10 +1,9 @@
-import { Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import CitiesInput from "../components/CitiesInput";
 import CitiesText from "../components/CitiesText";
 import Footer from "../components/Footer";
 import useCityData from "../hooks/useCityData";
 import AddCity from "../components/AddCity";
-import { useSelector } from "react-redux";
 
 const CitiesPage = () => {
   const { list, loading, error } = useCityData();
@@ -12,7 +11,7 @@ const CitiesPage = () => {
 
   return (
     <div className="cities-page">
-      <Container className="cities-page-container">
+      <div className="cities-page-container">
         <CitiesText />
         <CitiesInput
           cities={list}
@@ -22,7 +21,7 @@ const CitiesPage = () => {
         />
         {auth.isAuthenticated && <AddCity />}
         <Footer />
-      </Container>
+      </div>
     </div>
   );
 };
