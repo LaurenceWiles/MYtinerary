@@ -1,6 +1,5 @@
-import React from "react";
-import LandingPage from "./pages/LandingPage";
 import { Routes, Route } from "react-router";
+import LandingPage from "./pages/LandingPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CitiesPage from "./pages/CitiesPage";
 import ItinerarysPage from "./pages/ItinerarysPage";
