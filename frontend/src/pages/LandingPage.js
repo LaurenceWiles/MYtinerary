@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, logout } from "../redux/authSlice";
 import LandingLogo from "../components/LandingLogo";
 import LandingP from "../components/LandingP";
-import { Container } from "react-bootstrap";
 import BrowseCitiesLink from "../components/BrowseCitiesLink";
 import Login from "../components/Login";
 import Logout from "../components/Logout";
@@ -20,7 +19,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <LandingLogo />
-      <Container className="landingpage-container">
+      <div className="landingpage-container">
         <div className="content">
           <LandingP />
           <BrowseCitiesLink />
@@ -31,7 +30,7 @@ const LandingPage = () => {
           )}
         </div>
         <Footer />
-      </Container>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,4 @@
-import React from "react";
 import { useParams, Link } from "react-router-dom";
-import Footer from "../components/Footer";
 import useItineraryData from "../hooks/useItineraryData";
 import {
   Container,
@@ -12,6 +10,7 @@ import {
 } from "@mui/material";
 import ItineraryCard from "../components/ItineraryCard";
 import AddItinerary from "../components/AddItinerary";
+import Footer from "../components/Footer";
 
 const ItinerarysPage = () => {
   const { city } = useParams();
